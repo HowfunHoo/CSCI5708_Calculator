@@ -1,5 +1,8 @@
 package com.haofan.calculator;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,12 +13,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private float result = 0;
     private TextView tv;
-    private float[] calculation = new float[3];
+    private float[] calculation = {0,0,0};
+    private int view_id = 0;
+    private int initial_bg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,129 +84,158 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onClick(View v){
 
-        String display = tv.getText().toString().trim();
-        if (display.equals("0")){
-            display = "";
+        if (view_id != 0){
+            Button previous_bt = (Button)findViewById(view_id);
+            previous_bt.setBackgroundColor(initial_bg);
         }
+        initial_bg = ((ColorDrawable)v.getBackground()).getColor();
+        v.setBackgroundColor(Color.GRAY);
+        view_id = v.getId();
+
+        String display = tv.getText().toString().trim();
+
+//        if (display.equals("0")){
+//            display = "";
+//        }
 
         switch (v.getId()){
             case R.id.btn_one:
-                if (result == 0){
-                    display = display + "1";
-                }else {
-                    display = "1";
-                    result = 0;
-                }
-//                if (result == 0 && display.equals("0")){
-//                    display = "1";
-//                }else if (result == 0 && display.equals("0")){
+//                if (result == 0){
 //                    display = display + "1";
-//                }else{
+//                }else {
 //                    display = "1";
 //                    result = 0;
 //                }
+                if (result == 0 && display.equals("0")){
+                    display = "1";
+                }else if (result == 0 && !display.equals("0")){
+                    display = display + "1";
+                }else{
+                    display = "1";
+                    result = 0;
+                }
                 tv.setText(display);
                 break;
             case R.id.btn_two:
-                if (result == 0){
+//                if (result == 0){
+//                    display = display + "2";
+//                }else {
+//                    display = "2";
+//                    result = 0;
+//                }
+                if (result == 0 && display.equals("0")){
+                    display = "2";
+                }else if (result == 0 && !display.equals("0")){
                     display = display + "2";
-                }else {
+                }else{
                     display = "2";
                     result = 0;
                 }
                 tv.setText(display);
                 break;
             case R.id.btn_three:
-                if (result == 0){
+                if (result == 0 && display.equals("0")){
+                    display = "3";
+                }else if (result == 0 && !display.equals("0")){
                     display = display + "3";
-                }else {
+                }else{
                     display = "3";
                     result = 0;
                 }
                 tv.setText(display);
                 break;
             case R.id.btn_four:
-                if (result == 0){
+                if (result == 0 && display.equals("0")){
+                    display = "4";
+                }else if (result == 0 && !display.equals("0")){
                     display = display + "4";
-                }else {
+                }else{
                     display = "4";
                     result = 0;
                 }
                 tv.setText(display);
                 break;
             case R.id.btn_five:
-                if (result == 0){
+                if (result == 0 && display.equals("0")){
+                    display = "5";
+                }else if (result == 0 && !display.equals("0")){
                     display = display + "5";
-                }else {
+                }else{
                     display = "5";
                     result = 0;
                 }
                 tv.setText(display);
                 break;
             case R.id.btn_six:
-                if (result == 0){
+                if (result == 0 && display.equals("0")){
+                    display = "6";
+                }else if (result == 0 && !display.equals("0")){
                     display = display + "6";
-                }else {
+                }else{
                     display = "6";
                     result = 0;
                 }
                 tv.setText(display);
                 break;
             case R.id.btn_seven:
-                if (result == 0){
+                if (result == 0 && display.equals("0")){
+                    display = "7";
+                }else if (result == 0 && !display.equals("0")){
                     display = display + "7";
-                }else {
+                }else{
                     display = "7";
                     result = 0;
                 }
                 tv.setText(display);
                 break;
             case R.id.btn_eight:
-                if (result == 0){
+                if (result == 0 && display.equals("0")){
+                    display = "8";
+                }else if (result == 0 && !display.equals("0")){
                     display = display + "8";
-                }else {
+                }else{
                     display = "8";
                     result = 0;
                 }
                 tv.setText(display);
                 break;
             case R.id.btn_nine:
-                if (result == 0){
+                if (result == 0 && display.equals("0")){
+                    display = "9";
+                }else if (result == 0 && !display.equals("0")){
                     display = display + "9";
-                }else {
+                }else{
                     display = "9";
                     result = 0;
                 }
                 tv.setText(display);
                 break;
             case R.id.btn_zero:
-                if (result == 0){
+                if (result == 0 && display.equals("0")){
+                    display = "0";
+                }else if (result == 0 && !display.equals("0")){
                     display = display + "0";
-                }else {
+                }else{
                     display = "0";
                     result = 0;
                 }
                 tv.setText(display);
                 break;
             case R.id.btn_pos_neg:
-                if (!display.equals("") && display.charAt(0)=='-'){
-                    display = display.substring(1, display.length());
-                }else if (display.equals(""))
+                if (display.equals("0"))
                 {
-                    display = "-";
+                    display = "-0";
+                }else if (display.charAt(0)=='-'){
+                    display = display.substring(1, display.length());
                 }
-                else if ((display.charAt(0)!='-' && display.length()<10)){
+                else if (display.length()<10){
                     display = "-" + display;
                 }
                 tv.setText(display);
                 break;
             case R.id.btn_dot:
                 if (!display.contains(".") && display.length()<10){
-                    if (display.equals("")){
-                        display = "0.";
-                    }else {
-                        display = display + ".";
-                    }
+                    display = display + ".";
                 }
                 tv.setText(display);
                 break;
@@ -214,22 +249,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tv.setText("0");
                 break;
             case R.id.btn_plus:
-                if (calculation[1]==0 && !display.equals("")){
+                if (calculation[1]==0){
                     calculation[0] = Float.parseFloat(display);
                     calculation[1] = 1;
                     calculation[2] = 0;
                     tv.setText("0");
                 }else{
-                    if (display.equals("")){
-                        calculation[2] = 0;
-                    }else {
-                        calculation[2] = Float.parseFloat(display);
-                    }
+                    calculation[2] = Float.parseFloat(display);
                     result = CalculateResult(calculation);
                     if (CheckDecimal(result)){
                         display = Float.toString(result);
+                        display = removeZeroAndDot(display);
                     }else {
                         display = Integer.toString((int)result);
+                        display = removeZeroAndDot(display);
                     }
 //                    display = new BigDecimal(String.valueOf(result)).stripTrailingZeros().toString();
 //                    display = Float.toString(result);
@@ -242,22 +275,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btn_minus:
-                if (calculation[1]==0 && !display.equals("")){
+                if (calculation[1]==0){
                     calculation[0] = Float.parseFloat(display);
                     calculation[1] = 2;
                     calculation[2] = 0;
                     tv.setText("0");
                 }else{
-                    if (display.equals("")){
-                        calculation[2] = 0;
-                    }else {
-                        calculation[2] = Float.parseFloat(display);
-                    }
+                    calculation[2] = Float.parseFloat(display);
                     result = CalculateResult(calculation);
                     if (CheckDecimal(result)){
                         display = Float.toString(result);
+                        display = removeZeroAndDot(display);
                     }else {
                         display = Integer.toString((int)result);
+                        display = removeZeroAndDot(display);
                     }
 //                    display = new BigDecimal(String.valueOf(result)).stripTrailingZeros().toString();
 //                    display = Float.toString(result);
@@ -270,23 +301,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btn_multiple:
-                if (calculation[1]==0 && !display.equals("")){
+                if (calculation[1]==0){
                     calculation[0] = Float.parseFloat(display);
                     calculation[1] = 3;
                     calculation[2] = 0;
                     tv.setText("0");
                 }else{
-                    if (display.equals("")){
-                        calculation[2] = 0;
-                    }else {
-                        calculation[2] = Float.parseFloat(display);
-                    }
+                    calculation[2] = Float.parseFloat(display);
                     result = CalculateResult(calculation);
 
                     if (CheckDecimal(result)){
                         display = Float.toString(result);
+                        display = removeZeroAndDot(display);
                     }else {
                         display = Integer.toString((int)result);
+                        display = removeZeroAndDot(display);
                     }
                     tv.setText(display);
 
@@ -296,23 +325,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btn_divide:
-                if (calculation[1]==0 && !display.equals("")){
+                if (calculation[1]==0){
                     calculation[0] = Float.parseFloat(display);
                     calculation[1] = 4;
                     calculation[2] = 0;
                     tv.setText("0");
                 }else{
-                    if (display.equals("")){
-                        calculation[2] = 0;
-                    }else {
-                        calculation[2] = Float.parseFloat(display);
-                    }
+                    calculation[2] = Float.parseFloat(display);
                     result = CalculateResult(calculation);
 
                     if (CheckDecimal(result)){
                         display = Float.toString(result);
+                        display = removeZeroAndDot(display);
                     }else {
                         display = Integer.toString((int)result);
+                        display = removeZeroAndDot(display);
                     }
                     tv.setText(display);
 
@@ -323,17 +350,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_equal:
                 if (calculation[1]!=0){
-                    if (display.equals("")){
-                        calculation[2] = 0;
-                    } else {
-                        calculation[2] = Float.parseFloat(display);
-                    }
+                    calculation[2] = Float.parseFloat(display);
                     result = CalculateResult(calculation);
 
                     if (CheckDecimal(result)){
                         display = Float.toString(result);
+                        display = removeZeroAndDot(display);
                     }else {
                         display = Integer.toString((int)result);
+                        display = removeZeroAndDot(display);
                     }
                     tv.setText(display);
 
@@ -353,19 +378,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         float result = 0;
 
-        if (cal[1]==1){
-            result = cal[0] + cal[2];
-        }else if (cal[1]==2){
-            result = cal[0] - cal[2];
-        }else if (cal[1]==3){
-            result = cal[0] * cal[2];
-        }else if (cal[1]==4){
-            result = cal[0] / cal[2];
+        try{
+            if (cal[1]==1){
+                result = cal[0] + cal[2];
+            }else if (cal[1]==2){
+                result = cal[0] - cal[2];
+            }else if (cal[1]==3){
+                result = cal[0] * cal[2];
+            }else if (cal[1]==4){
+                result = cal[0] / cal[2];
+            }
+        }catch (Exception e){
+            tv.setText("Error");
         }
 
         return result;
     }
 
+    //check if a number has decimal part
     public boolean CheckDecimal(float num){
 
         if (num-(int)num!=0){
@@ -375,12 +405,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-//    public String removeZeroAndDot(String str){
-//        if(str.indexOf(".") > 0){
-//            str = str.replaceAll("0+?$", "");
-//            str = str.replaceAll("[.]$", "");
-//        }
-//        return str;
-//    }
+    //remove the needless zero and dot
+    public String removeZeroAndDot(String str){
+
+        //The string after "E"
+        String str_afterE ="";
+
+        //When the decimal is longer than 10 chars, remove the excess part
+        if (str.length()>10){
+
+            //make sure the exponent will be completely shown
+            if (str.contains("E")){
+                System.out.println("xxx"+str);
+                str = str.substring(0, 7) + str.substring(str.indexOf("E"),str.length());
+            }else {
+                str=str.substring(0,10);
+            }
+
+        }
+
+        if (str.contains("E")){
+            str_afterE = str.substring(str.indexOf("E"), str.length());
+            str = str.substring(0,str.indexOf("E"));
+        }
+
+        //remove the needless zero and dot
+        for (int i= str.length()-1; i>0; i--){
+            if (str.charAt(i)=='0' || str.charAt(i)=='.'){
+                str=str.substring(0,i-1);
+                i--;
+            }else {
+                break;
+            }
+        }
+
+        if (!str_afterE.equals("")){
+            str = str + str_afterE;
+        }
+
+        return str;
+    }
 
 }
