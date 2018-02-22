@@ -18,11 +18,13 @@
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="411dp"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_alignParentBottom="true"
                 android:gravity="right"
                 android:text="@string/zero"
-                android:textSize="70sp" />
+                android:textSize="65sp"
+                android:maxLines="1"
+                android:maxLength="10" />
 
 
         </RelativeLayout>
