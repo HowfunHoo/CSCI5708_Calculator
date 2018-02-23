@@ -10,13 +10,29 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 
+/**
+ * Created by Haofan Hou (B00783052)
+ * Stored in GitHub as a PRIVATE repository (https://github.com/HowfunHoo/CSCI5708_Calculator.git)
+ */
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //store calculating result
     private float result = 0;
+
     private TextView tv;
+
+    //store a calculation
+    //calculation[0]=first number, calculation[1]=operator, calculation[2]=second number,
     private float[] calculation = {0,0,0};
+
+    //store the last calculation
     private float[] last_calculation = {0,0,0};
+
+    //store the id of the currently operating View (used to change and recover button color)
     private int view_id = 0;
+
+    //store the initial background of a button (used to recover the button color)
     private int initial_bg;
 
     //indicate if any number was clicked since last time clicking an operator
@@ -88,23 +104,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //When clicking a button, the color changes until clicking the next button
         if (view_id != 0){
-            Button previous_bt = (Button)findViewById(view_id);
-            previous_bt.setBackgroundColor(initial_bg);
+            Button previous_bt = (Button)findViewById(view_id); //find the last clicked button
+            previous_bt.setBackgroundColor(initial_bg); //recover the color of the last clicked button
         }
-        initial_bg = ((ColorDrawable)v.getBackground()).getColor();
-        v.setBackgroundColor(Color.GRAY);
-        view_id = v.getId();
+        initial_bg = ((ColorDrawable)v.getBackground()).getColor(); //record the initial color of the currently clicking button
+        v.setBackgroundColor(Color.GRAY);  //change the color of the currently clicking button
+        view_id = v.getId();  //record the id of the currently clicking button
 
-        String display = tv.getText().toString().trim();
+        String display = tv.getText().toString().trim(); //get the current content of the text view
 
         switch (v.getId()){
+
+            //the operations when '1' button clicked.
+            //the operations when other number buttons clicked are basically same.
             case R.id.btn_one:
                 clicked_num = true;
+
+                //if an operator was just clicked, reset the screen
                 if (clicked_ope){
                     display = "0";
                     tv.setText(display);
                 }
                 clicked_ope = false;
+
+                //print the clicked number on the screen
                 if (result == 0 && display.equals("0")){
                     display = "1";
                 }else if (result == 0 && !display.equals("0")){
@@ -117,11 +140,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_two:
                 clicked_num = true;
+
+                //if an operator was just clicked, reset the screen
                 if (clicked_ope){
                     display = "0";
                     tv.setText(display);
                 }
                 clicked_ope = false;
+
+                //print the clicked number on the screen
                 if (result == 0 && display.equals("0")){
                     display = "2";
                 }else if (result == 0 && !display.equals("0")){
@@ -268,6 +295,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 tv.setText(display);
                 break;
+
+            //The operations when "+/-" button clicked
             case R.id.btn_pos_neg:
                 clicked_num = true;
                 clicked_ope = false;
@@ -277,19 +306,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }else if (display.charAt(0)=='-'){
                     display = display.substring(1, display.length());
                 }
-                else if (display.length()<10){
+                else if (display.length()<10){ //when display is longer than 10 chars, don't print "-"
                     display = "-" + display;
                 }
                 tv.setText(display);
                 break;
+
+            //The operations when "." button clicked
             case R.id.btn_dot:
                 clicked_num = true;
                 clicked_ope = false;
+
+                //when display is longer than 10 chars or there is already a dot, don't print "."
                 if (!display.contains(".") && display.length()<10){
                     display = display + ".";
                 }
                 tv.setText(display);
                 break;
+
+            //The operations when "AC" button clicked
             case R.id.btn_ac:
                 for (int i=1;i<3;i++){
                     calculation[i]=0;
@@ -299,37 +334,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 clicked_num = false;
                 clicked_ope = false;
                 break;
+
+            //The operations when "C" button clicked
             case R.id.btn_clear:
                 tv.setText("0");
                 clicked_num = false;
                 break;
+
+            //The operations when "+" button clicked
+            //The operations when '-', '*', '/' buttons clicked are basically same.
             case R.id.btn_plus:
                 clicked_ope = true;
-                if (calculation[1]==0){
+                if (calculation[1]==0){ //if no operator has been clicked
                     calculation[0] = Float.parseFloat(display);
                     calculation[1] = 1;
                     calculation[2] = 0;
 //                    tv.setText("0");
                     clicked_num = false;
                 }else if (!clicked_num){
+                    //if clicking more than one operator button
+                    // and no number button has been clicked since last time clicking an operator,
+                    // the final operator for the calculation will be the latest clicked operator.
                     calculation[1] = 1;
                 }else{
+                    //if the calculation already has two operands,
+                    // clicking another operator button will show the result of the finished calculation first
+                    // and start the next calculation in the mean time.
                     calculation[2] = Float.parseFloat(display);
                     result = CalculateResult(calculation);
+
+                    //if the result has decimal, print the decimal without needless zeros
                     if (CheckDecimal(result)){
                         display = Float.toString(result);
                         display = removeZeroAndDot(display);
-                    }else {
+                    }else { //if the result has no decimal, print the int
                         display = Integer.toString((int)result);
                     }
-//                    display = new BigDecimal(String.valueOf(result)).stripTrailingZeros().toString();
-//                    display = Float.toString(result);
-//                    display = removeZeroAndDot(display);
                     tv.setText(display);
 
+                    //start the next calculation
                     calculation[0] = result;
                     calculation[1] = 1;
                     calculation[2] = 0;
+
                     clicked_num = false;
                 }
                 break;
@@ -421,8 +468,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     clicked_num = false;
                 }
                 break;
+
+            //The operations when "=" button clicked
             case R.id.btn_equal:
                 clicked_ope = true;
+
+                //if no button has been clicked since last time clicking the "=" button,
+                // continue clicking "button" will show the calculating result of the printed number
+                // and the second operand with the same operator as the latest calculation
                 if (!clicked_num && calculation[1]==0){
                     result = CalculateResult(last_calculation);
 
@@ -448,10 +501,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     tv.setText(display);
 
+                    //store the just finished calculation
                     last_calculation[0] = result;
                     last_calculation[1] = calculation[1];
                     last_calculation[2] = calculation[2];
 
+                    //reset the calculation
                     calculation[0] = result;
                     calculation[1] = 0;
                     calculation[2] = 0;
@@ -459,6 +514,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     clicked_num = false;
                 }
                 break;
+
+            //The operations when "√" button clicked
             case R.id.btn_radical:
                 result = (float) Math.sqrt(Float.parseFloat(display));
 
@@ -476,6 +533,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    //calculating the result of the input calculation
     public float CalculateResult(float cal[]){
 
         float result = 0;
