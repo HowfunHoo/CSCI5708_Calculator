@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 
 /**
  * Created by Haofan Hou (B00783052)
- * Stored in GitHub as a PRIVATE repository (https://github.com/HowfunHoo/CSCI5708_Calculator.git)
  */
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -46,32 +45,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tv = (TextView)findViewById(R.id.textView);
+        tv = findViewById(R.id.textView);
 
-        Button btn_ac = (Button)findViewById(R.id.btn_ac);
-        Button btn_pos_neg = (Button)findViewById(R.id.btn_pos_neg);
-        Button btn_radical = (Button)findViewById(R.id.btn_radical);
-        Button btn_divide = (Button)findViewById(R.id.btn_divide);
+        Button btn_ac = findViewById(R.id.btn_ac);
+        Button btn_pos_neg = findViewById(R.id.btn_pos_neg);
+        Button btn_radical = findViewById(R.id.btn_radical);
+        Button btn_divide = findViewById(R.id.btn_divide);
 
-        Button btn_seven = (Button)findViewById(R.id.btn_seven);
-        Button btn_eight = (Button)findViewById(R.id.btn_eight);
-        Button btn_nine = (Button)findViewById(R.id.btn_nine);
-        Button btn_multiple = (Button)findViewById(R.id.btn_multiple);
+        Button btn_seven = findViewById(R.id.btn_seven);
+        Button btn_eight = findViewById(R.id.btn_eight);
+        Button btn_nine = findViewById(R.id.btn_nine);
+        Button btn_multiple = findViewById(R.id.btn_multiple);
 
-        Button btn_four = (Button)findViewById(R.id.btn_four);
-        Button btn_five = (Button)findViewById(R.id.btn_five);
-        Button btn_six = (Button)findViewById(R.id.btn_six);
-        Button btn_minus = (Button)findViewById(R.id.btn_minus);
+        Button btn_four = findViewById(R.id.btn_four);
+        Button btn_five = findViewById(R.id.btn_five);
+        Button btn_six = findViewById(R.id.btn_six);
+        Button btn_minus = findViewById(R.id.btn_minus);
 
-        Button btn_one = (Button)findViewById(R.id.btn_one);
-        Button btn_two = (Button)findViewById(R.id.btn_two);
-        Button btn_three = (Button)findViewById(R.id.btn_three);
-        Button btn_plus = (Button)findViewById(R.id.btn_plus);
+        Button btn_one = findViewById(R.id.btn_one);
+        Button btn_two = findViewById(R.id.btn_two);
+        Button btn_three = findViewById(R.id.btn_three);
+        Button btn_plus = findViewById(R.id.btn_plus);
 
-        Button btn_clear = (Button)findViewById(R.id.btn_clear);
-        Button btn_zero = (Button)findViewById(R.id.btn_zero);
-        Button btn_dot = (Button)findViewById(R.id.btn_dot);
-        Button btn_equal = (Button)findViewById(R.id.btn_equal);
+        Button btn_clear = findViewById(R.id.btn_clear);
+        Button btn_zero = findViewById(R.id.btn_zero);
+        Button btn_dot = findViewById(R.id.btn_dot);
+        Button btn_equal = findViewById(R.id.btn_equal);
 
         btn_ac.setOnClickListener(this);
         btn_pos_neg.setOnClickListener(this);
@@ -104,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //When clicking a button, the color changes until clicking the next button
         if (view_id != 0){
-            Button previous_bt = (Button)findViewById(view_id); //find the last clicked button
+            Button previous_bt = findViewById(view_id); //find the last clicked button
             previous_bt.setBackgroundColor(initial_bg); //recover the color of the last clicked button
         }
         initial_bg = ((ColorDrawable)v.getBackground()).getColor(); //record the initial color of the currently clicking button
@@ -116,184 +115,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
 
             //the operations when '1' button clicked.
-            //the operations when other number buttons clicked are basically same.
             case R.id.btn_one:
-                clicked_num = true;
-
-                //if an operator was just clicked, reset the screen
-                if (clicked_ope){
-                    display = "0";
-                    tv.setText(display);
-                }
-                clicked_ope = false;
-
-                //print the clicked number on the screen
-                if (result == 0 && display.equals("0")){
-                    display = "1";
-                }else if (result == 0 && !display.equals("0")){
-                    display = display + "1";
-                }else{
-                    display = "1";
-                    result = 0;
-                }
-                tv.setText(display);
+                clickingNums (display, "1");
                 break;
             case R.id.btn_two:
-                clicked_num = true;
-
-                //if an operator was just clicked, reset the screen
-                if (clicked_ope){
-                    display = "0";
-                    tv.setText(display);
-                }
-                clicked_ope = false;
-
-                //print the clicked number on the screen
-                if (result == 0 && display.equals("0")){
-                    display = "2";
-                }else if (result == 0 && !display.equals("0")){
-                    display = display + "2";
-                }else{
-                    display = "2";
-                    result = 0;
-                }
-                tv.setText(display);
+                clickingNums (display, "2");
                 break;
             case R.id.btn_three:
-                clicked_num = true;
-                if (clicked_ope){
-                    display = "0";
-                    tv.setText(display);
-                }
-                clicked_ope = false;
-                if (result == 0 && display.equals("0")){
-                    display = "3";
-                }else if (result == 0 && !display.equals("0")){
-                    display = display + "3";
-                }else{
-                    display = "3";
-                    result = 0;
-                }
-                tv.setText(display);
+                clickingNums (display, "3");
                 break;
             case R.id.btn_four:
-                clicked_num = true;
-                if (clicked_ope){
-                    display = "0";
-                    tv.setText(display);
-                }
-                clicked_ope = false;
-                if (result == 0 && display.equals("0")){
-                    display = "4";
-                }else if (result == 0 && !display.equals("0")){
-                    display = display + "4";
-                }else{
-                    display = "4";
-                    result = 0;
-                }
-                tv.setText(display);
+                clickingNums (display, "4");
                 break;
             case R.id.btn_five:
-                clicked_num = true;
-                if (clicked_ope){
-                    display = "0";
-                    tv.setText(display);
-                }
-                clicked_ope = false;
-                if (result == 0 && display.equals("0")){
-                    display = "5";
-                }else if (result == 0 && !display.equals("0")){
-                    display = display + "5";
-                }else{
-                    display = "5";
-                    result = 0;
-                }
-                tv.setText(display);
+                clickingNums (display, "5");
                 break;
             case R.id.btn_six:
-                clicked_num = true;
-                if (clicked_ope){
-                    display = "0";
-                    tv.setText(display);
-                }
-                clicked_ope = false;
-                if (result == 0 && display.equals("0")){
-                    display = "6";
-                }else if (result == 0 && !display.equals("0")){
-                    display = display + "6";
-                }else{
-                    display = "6";
-                    result = 0;
-                }
-                tv.setText(display);
+                clickingNums (display, "6");
                 break;
             case R.id.btn_seven:
-                clicked_num = true;
-                if (clicked_ope){
-                    display = "0";
-                    tv.setText(display);
-                }
-                clicked_ope = false;
-                if (result == 0 && display.equals("0")){
-                    display = "7";
-                }else if (result == 0 && !display.equals("0")){
-                    display = display + "7";
-                }else{
-                    display = "7";
-                    result = 0;
-                }
-                tv.setText(display);
+                clickingNums (display, "7");
                 break;
             case R.id.btn_eight:
-                clicked_num = true;
-                if (clicked_ope){
-                    display = "0";
-                    tv.setText(display);
-                }
-                clicked_ope = false;
-                if (result == 0 && display.equals("0")){
-                    display = "8";
-                }else if (result == 0 && !display.equals("0")){
-                    display = display + "8";
-                }else{
-                    display = "8";
-                    result = 0;
-                }
-                tv.setText(display);
+                clickingNums (display, "8");
                 break;
             case R.id.btn_nine:
-                clicked_num = true;
-                if (clicked_ope){
-                    display = "0";
-                    tv.setText(display);
-                }
-                clicked_ope = false;
-                if (result == 0 && display.equals("0")){
-                    display = "9";
-                }else if (result == 0 && !display.equals("0")){
-                    display = display + "9";
-                }else{
-                    display = "9";
-                    result = 0;
-                }
-                tv.setText(display);
+                clickingNums (display, "9");
                 break;
             case R.id.btn_zero:
-                clicked_num = true;
-                if (clicked_ope){
-                    display = "0";
-                    tv.setText(display);
-                }
-                clicked_ope = false;
-                if (result == 0 && display.equals("0")){
-                    display = "0";
-                }else if (result == 0 && !display.equals("0")){
-                    display = display + "0";
-                }else{
-                    display = "0";
-                    result = 0;
-                }
-                tv.setText(display);
+                clickingNums (display, "0");
                 break;
 
             //The operations when "+/-" button clicked
@@ -342,131 +192,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             //The operations when "+" button clicked
-            //The operations when '-', '*', '/' buttons clicked are basically same.
             case R.id.btn_plus:
-                clicked_ope = true;
-                if (calculation[1]==0){ //if no operator has been clicked
-                    calculation[0] = Float.parseFloat(display);
-                    calculation[1] = 1;
-                    calculation[2] = 0;
-//                    tv.setText("0");
-                    clicked_num = false;
-                }else if (!clicked_num){
-                    //if clicking more than one operator button
-                    // and no number button has been clicked since last time clicking an operator,
-                    // the final operator for the calculation will be the latest clicked operator.
-                    calculation[1] = 1;
-                }else{
-                    //if the calculation already has two operands,
-                    // clicking another operator button will show the result of the finished calculation first
-                    // and start the next calculation in the mean time.
-                    calculation[2] = Float.parseFloat(display);
-                    result = CalculateResult(calculation);
-
-                    //if the result has decimal, print the decimal without needless zeros
-                    if (CheckDecimal(result)){
-                        display = Float.toString(result);
-                        display = removeZeroAndDot(display);
-                    }else { //if the result has no decimal, print the int
-                        display = Integer.toString((int)result);
-                    }
-                    tv.setText(display);
-
-                    //start the next calculation
-                    calculation[0] = result;
-                    calculation[1] = 1;
-                    calculation[2] = 0;
-
-                    clicked_num = false;
-                }
+                clickingOperators(display, 1);
                 break;
             case R.id.btn_minus:
-                clicked_ope = true;
-                if (calculation[1]==0){
-                    calculation[0] = Float.parseFloat(display);
-                    calculation[1] = 2;
-                    calculation[2] = 0;
-//                    tv.setText("0");
-                    clicked_num = false;
-                }else if (!clicked_num){
-                    calculation[1] = 2;
-                }else{
-                    calculation[2] = Float.parseFloat(display);
-                    result = CalculateResult(calculation);
-                    if (CheckDecimal(result)){
-                        display = Float.toString(result);
-                        display = removeZeroAndDot(display);
-                    }else {
-                        display = Integer.toString((int)result);
-                    }
-//                    display = new BigDecimal(String.valueOf(result)).stripTrailingZeros().toString();
-//                    display = Float.toString(result);
-//                    display = removeZeroAndDot(display);
-                    tv.setText(display);
-
-                    calculation[0] = result;
-                    calculation[1] = 2;
-                    calculation[2] = 0;
-                    clicked_num = false;
-                }
+                clickingOperators(display, 2);
                 break;
             case R.id.btn_multiple:
-                clicked_ope = true;
-                if (calculation[1]==0){
-                    calculation[0] = Float.parseFloat(display);
-                    calculation[1] = 3;
-                    calculation[2] = 0;
-//                    tv.setText("0");
-                    clicked_num = false;
-                }else if (!clicked_num){
-                    calculation[1] = 3;
-                }else{
-                    calculation[2] = Float.parseFloat(display);
-                    result = CalculateResult(calculation);
-
-                    if (CheckDecimal(result)){
-                        display = Float.toString(result);
-                        display = removeZeroAndDot(display);
-                    }else {
-                        display = Integer.toString((int)result);
-                    }
-                    tv.setText(display);
-
-                    calculation[0] = result;
-                    calculation[1] = 3;
-                    calculation[2] = 0;
-
-                    clicked_num = false;
-                }
+                clickingOperators(display, 3);
                 break;
             case R.id.btn_divide:
-                clicked_ope = true;
-                if (calculation[1]==0){
-                    calculation[0] = Float.parseFloat(display);
-                    calculation[1] = 4;
-                    calculation[2] = 0;
-//                    tv.setText("0");
-                    clicked_num = false;
-                }else if (!clicked_num){
-                    calculation[1] = 4;
-                }else{
-                    calculation[2] = Float.parseFloat(display);
-                    result = CalculateResult(calculation);
-
-                    if (CheckDecimal(result)){
-                        display = Float.toString(result);
-                        display = removeZeroAndDot(display);
-                    }else {
-                        display = Integer.toString((int)result);
-                    }
-                    tv.setText(display);
-
-                    calculation[0] = result;
-                    calculation[1] = 4;
-                    calculation[2] = 0;
-
-                    clicked_num = false;
-                }
+                clickingOperators(display, 4);
                 break;
 
             //The operations when "=" button clicked
@@ -477,9 +213,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // continue clicking "button" will show the calculating result of the printed number
                 // and the second operand with the same operator as the latest calculation
                 if (!clicked_num && calculation[1]==0){
-                    result = CalculateResult(last_calculation);
+                    result = calculateResult(last_calculation);
 
-                    if (CheckDecimal(result)){
+                    if (checkDecimal(result)){
                         display = Float.toString(result);
                         display = removeZeroAndDot(display);
                     }else {
@@ -491,9 +227,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }else if (calculation[1]!=0){
                     calculation[2] = Float.parseFloat(display);
-                    result = CalculateResult(calculation);
+                    result = calculateResult(calculation);
 
-                    if (CheckDecimal(result)){
+                    if (checkDecimal(result)){
                         display = Float.toString(result);
                         display = removeZeroAndDot(display);
                     }else {
@@ -519,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_radical:
                 result = (float) Math.sqrt(Float.parseFloat(display));
 
-                if (CheckDecimal(result)){
+                if (checkDecimal(result)){
                     display = Float.toString(result);
                     display = removeZeroAndDot(display);
                 }else {
@@ -533,8 +269,75 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    //the operations when a number button is clicked
+    public void clickingNums (String display, String num){
+
+        clicked_num = true;
+
+        //if an operator was just clicked, reset the screen
+        if (clicked_ope){
+            display = "0";
+            tv.setText(display);
+        }
+        clicked_ope = false;
+
+        //print the clicked number on the screen
+        if (result == 0 && display.equals("0")){
+            display = num;
+        }else if (result == 0 && !display.equals("0")){
+            if (display.equals("-0")){
+                display = "-" + num;
+            }else {
+                display = display + num;
+            }
+        }else{
+            display = num;
+            result = 0;
+        }
+        tv.setText(display);
+    }
+
+    //the operations when an operator button is clicked
+    public void clickingOperators(String display, int operator){
+        clicked_ope = true;
+        if (calculation[1]==0){ //if no operator has been clicked
+            calculation[0] = Float.parseFloat(display);
+            calculation[1] = operator;
+            calculation[2] = 0;
+//                    tv.setText("0");
+            clicked_num = false;
+        }else if (!clicked_num){
+            //if clicking more than one operator button
+            // and no number button has been clicked since last time clicking an operator,
+            // the final operator for the calculation will be the latest clicked operator.
+            calculation[1] = operator;
+        }else{
+            //if the calculation already has two operands,
+            // clicking another operator button will show the result of the finished calculation first
+            // and start the next calculation in the mean time.
+            calculation[2] = Float.parseFloat(display);
+            result = calculateResult(calculation);
+
+            //if the result has decimal, print the decimal without needless zeros
+            if (checkDecimal(result)){
+                display = Float.toString(result);
+                display = removeZeroAndDot(display);
+            }else { //if the result has no decimal, print the int
+                display = Integer.toString((int)result);
+            }
+            tv.setText(display);
+
+            //start the next calculation
+            calculation[0] = result;
+            calculation[1] = operator;
+            calculation[2] = 0;
+
+            clicked_num = false;
+        }
+    }
+
     //calculating the result of the input calculation
-    public float CalculateResult(float cal[]){
+    public float calculateResult(float cal[]){
 
         float result = 0;
 
@@ -549,20 +352,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 result = cal[0] / cal[2];
             }
         }catch (Exception e){
-
+            System.out.println("Error: " + e);
         }
 
         return result;
     }
 
     //check if a number has decimal part
-    public boolean CheckDecimal(float num){
+    public boolean checkDecimal(float num){
 
-        if (num-(int)num!=0){
-            return true;
-        }else {
-            return false;
-        }
+        return num - (int) num != 0;
     }
 
     //remove the needless zero and dot
